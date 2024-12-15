@@ -22,7 +22,7 @@ from sklearn.ensemble import RandomForestClassifier
 #    image = cv2.imdecode(file_bytes,1)
 #    st.image(image,channels = "BGR", caption = 'Test your risk of diabetes', use_column_width = True)
 
-im = Image.open('D:\\pics\project concepts\diabetes.png')
+#im = Image.open('D:\\pics\project concepts\diabetes.png')
 st.image(im,use_column_width = True)
 
 st.write("""
