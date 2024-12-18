@@ -20,11 +20,11 @@ st.write("""
 """)
 
 # Load dataset
-data_path = 'D:/Docs/ACAD/DATA SCIENCE/Python/python - Data analysis/diabetes.csv'
+data_path = 'https://raw.githubusercontent.com/Enqey/Diabetes_ml/main/diabetes.csv'
 try:
     df = pd.read_csv(data_path)
-except FileNotFoundError:
-    st.error(f"Dataset not found at {data_path}. Please check the file path.")
+except Exception as e:
+    st.error(f"Error loading dataset: {e}")
     st.stop()
 
 # Display dataset information
