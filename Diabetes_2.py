@@ -72,20 +72,28 @@ def get_user_input():
 
 # Function to log user data
 def log_user_input(user_data, prediction):
-    log_file = 'https://github.com/Enqey/Diabetes_ml/main/user_input_log.csv'
+    log_file = 'user_input_log.csv'
     user_data['Prediction'] = prediction  # Add prediction to the user data
     user_data['Timestamp'] = pd.Timestamp.now()  # Add timestamp for logging
+
+    # Convert user data to a DataFrame if not already
+    user_data_df = pd.DataFrame([user_data])
 
     # Check if log file exists
     if os.path.exists(log_file):
         # Append to the existing file
-        pd.DataFrame(user_data).to_csv(log_file, mode='a', index=False, header=False)
+        user_data_df.to_csv(log_file, mode='a', index=False, header=False)
     else:
         # Create a new log file
-        pd.DataFrame(user_data).to_csv(log_file, index=False)
+        user_data_df.to_csv(log_file, index=False)
 
-# Get user input
+# Example of using the function in your model
 user_input = get_user_input()
+user_input_normalized = scaler.transform(user_input)
+prediction = best_model.predict(user_input_normalized)
+
+# Log user input
+log_user_input(user_input.to_dict(), prediction[0])
 
 # Normalize user input using the same scaler
 user_input_normalized = scaler.transform(user_input)
