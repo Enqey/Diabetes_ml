@@ -72,7 +72,7 @@ def get_user_input():
 
 # Function to log user data
 def log_user_input(user_data, prediction):
-    log_file = 'user_input_log.csv'
+    log_file = 'https://github.com/Enqey/Diabetes_ml/main/user_input_log.csv'
     user_data['Prediction'] = prediction  # Add prediction to the user data
     user_data['Timestamp'] = pd.Timestamp.now()  # Add timestamp for logging
 
