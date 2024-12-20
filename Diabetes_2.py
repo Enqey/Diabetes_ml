@@ -49,18 +49,22 @@ def get_user_input():
     pregnancies = st.sidebar.slider('Pregnancies', 0, 17, 3)
     glucose = st.sidebar.slider('Glucose', 0, 199, 117)
     blood_pressure = st.sidebar.slider('Blood Pressure', 0, 122, 72)
+    Insulin = st.sidebar.slider('Insulin', 0, 846, 29)
     BMI = st.sidebar.slider('BMI', 0.0, 67.1, 32.0)
     DPF = st.sidebar.slider('Diabetes Pedigree Function (DPF)', 0.078, 2.42, 0.3725)
     Age = st.sidebar.slider('Age', 21, 81, 29)
+   
 
     # Store user data in a DataFrame
     user_data = {
         'Pregnancies': pregnancies,
         'Glucose': glucose,
         'BloodPressure': blood_pressure,
+        'Insulin': Insulin,
         'BMI': BMI,
-        'DPF': DPF,
-        'Age': Age
+        'DiabetesPedigreeFunction': DPF,
+        'Age': Age 
+        
     }
 
     # Transform into DataFrame
