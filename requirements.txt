@@ -4,4 +4,3 @@ pandas
 pillow
 imblearn
 matplotlib
-os
