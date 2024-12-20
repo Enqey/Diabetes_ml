@@ -10,7 +10,6 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
-import os
 
 # Load dataset
 data_path = 'https://raw.githubusercontent.com/Enqey/Diabetes_ml/main/diabetes.csv'
@@ -54,6 +53,7 @@ def get_user_input():
     BMI = st.sidebar.slider('BMI', 0.0, 67.1, 32.0)
     DPF = st.sidebar.slider('Diabetes Pedigree Function (DPF)', 0.078, 2.42, 0.3725)
     Age = st.sidebar.slider('Age', 21, 81, 29)
+   
 
     # Store user data in a DataFrame
     user_data = {
@@ -63,37 +63,16 @@ def get_user_input():
         'Insulin': Insulin,
         'BMI': BMI,
         'DiabetesPedigreeFunction': DPF,
-        'Age': Age
+        'Age': Age 
+        
     }
 
     # Transform into DataFrame
     features = pd.DataFrame(user_data, index=[0])
     return features
 
-# Function to log user data
-def log_user_input(user_data, prediction):
-    log_file = 'user_input_log.csv'
-    user_data['Prediction'] = prediction  # Add prediction to the user data
-    user_data['Timestamp'] = pd.Timestamp.now()  # Add timestamp for logging
-
-    # Convert user data to a DataFrame if not already
-    user_data_df = pd.DataFrame([user_data])
-
-    # Check if log file exists
-    if os.path.exists(log_file):
-        # Append to the existing file
-        user_data_df.to_csv(log_file, mode='a', index=False, header=False)
-    else:
-        # Create a new log file
-        user_data_df.to_csv(log_file, index=False)
-
-# Example of using the function in your model
+# Get user input
 user_input = get_user_input()
-user_input_normalized = scaler.transform(user_input)
-prediction = best_model.predict(user_input_normalized)
-
-# Log user input
-log_user_input(user_input.to_dict(), prediction[0])
 
 # Normalize user input using the same scaler
 user_input_normalized = scaler.transform(user_input)
@@ -133,10 +112,25 @@ st.bar_chart(feature_importance.set_index('Feature'))
 # Predict user input
 prediction = best_model.predict(user_input_normalized)
 result = 'Diabetic' if prediction[0] == 1 else 'Non-Diabetic'
-
-# Log the user input
-log_user_input(user_input, result)
-
-# Display classification result
 st.subheader('Classification:')
 st.write(result)
+
+# Logging user input
+def log_user_input(user_data, prediction):
+    log_file = 'user_input_log.csv'  # Local file path for Streamlit
+    user_data['Prediction'] = prediction  # Add prediction to the user data
+    user_data['Timestamp'] = pd.Timestamp.now()  # Add timestamp for logging
+
+    # Convert user data to a DataFrame if not already
+    user_data_df = pd.DataFrame([user_data])
+
+    # Check if log file exists
+    if os.path.exists(log_file):
+        # Append to the existing file
+        user_data_df.to_csv(log_file, mode='a', index=False, header=False)
+    else:
+        # Create a new log file
+        user_data_df.to_csv(log_file, index=False)
+
+# Log user input
+log_user_input(user_input.to_dict(), prediction[0])
