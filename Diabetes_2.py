@@ -4,6 +4,7 @@ Improved Diabetes Prediction Model
 """
 
 import pandas as pd
+import os
 import streamlit as st
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 from sklearn.model_selection import train_test_split, GridSearchCV
